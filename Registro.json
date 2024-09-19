@@ -1,0 +1,42 @@
+// Interface para o tipo de dados de um usuário
+interface User {
+    name: string;
+    email: string;
+    password: string;
+}
+
+// Classe para gerenciar o cadastro de usuários
+class UserRegistration {
+    private users: User[] = [];
+
+    // Método para cadastrar um novo usuário
+    public registerUser(name: string, email: string, password: string): string {
+        // Verifica se o email já está cadastrado
+        const existingUser = this.users.find(user => user.email === email);
+        if (existingUser) {
+            return 'Email já cadastrado!';
+        }
+
+        // Cria um novo usuário e adiciona à lista de usuários
+        const newUser: User = { name, email, password };
+        this.users.push(newUser);
+
+        return 'Cadastro realizado com sucesso!';
+    }
+
+    // Método para listar todos os usuários cadastrados (apenas para fins de exemplo)
+    public listUsers(): User[] {
+        return this.users;
+    }
+}
+
+// Exemplo de uso
+const registrationSystem = new UserRegistration();
+
+// Cadastrando usuários
+console.log(registrationSystem.registerUser('João Silva', 'joao@example.com', 'senha123'));
+console.log(registrationSystem.registerUser('Maria Souza', 'maria@example.com', 'senha456'));
+console.log(registrationSystem.registerUser('João Silva', 'joao@example.com', 'senha123')); // Tentativa de cadastrar o mesmo email
+
+// Listando os usuários cadastrados
+console.log(registrationSystem.listUsers());
